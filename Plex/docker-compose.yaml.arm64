@@ -1,0 +1,27 @@
+version: '3'
+services:
+  plex:
+    image: ghcr.io/linuxserver/plex:version-1.23.3.4707-ebb5fe9f3@sha256:015be6d04220d47f793240fbfa6a5bce288d7871a71de292f33a2d13b78fb431
+    container_name: plex
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - SYSCALL_MAX_ENABLED=1
+      - VERSION=docker
+      - PLEX_CLAIM=<your plex claim token>
+      - VIRTUAL_HOST=plex.lan
+      - VIRTUAL_PORT=32400
+    ports:
+      - 32400:32400
+      - 1900:1900/udp
+      - 3005:3005
+      - 8324:8324
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+      - 32469:32469
+    volumes:
+      - /plex/config:/config
+      - /plex/tvseries:/tv
+    restart: unless-stopped
